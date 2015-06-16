@@ -1,0 +1,558 @@
+\documentclass[a4paper,12pt]{article}
+\pagenumbering{arabic}
+\usepackage{graphicx}
+\DeclareGraphicsExtensions{.pdf,.png,.jpg,.eps}
+\usepackage{amsrefs}
+
+\begin{document}
+
+    \begin{center}
+
+        \begin{figure}[htp]
+        \begin{center}
+        \includegraphics[scale=0.25]{jpg/The-Cloud.jpg}
+        \end{center}
+        %\caption{} \label{}
+        \end{figure}
+
+        \begin{tabular}{c}
+            \hline
+            \hline
+            \\ \\
+ 	{\LARGE\textbf{A Social Compute Cloud: Allocating}}\\
+            {\LARGE\textbf{and Sharing Infrastructure Resources}}\\
+	 {\LARGE\textbf{ via Social Networks}}\\
+            \\
+            \textbf{Simon Caton}, Member, IEEE,  \textbf{Christian Haas}, Member, IEEE\\
+	  \textbf{ Kyle Chard}, Member, IEEE,  \textbf{Kris Bubendorfer}, Member, IEEE\\
+ 	   and  \textbf{ Omer F. Rana}, Member, IEEE\\
+            \\ \\
+            \hline
+	\hline
+            \\ \\
+        \end{tabular}
+
+    \end{center}
+
+     {\large\textbf{Published In :}}\\
+
+    \begin{center}
+        \begin{tabular}{c}
+            \textbf{Magazine :}\\
+            Services Computing, IEEE Transactions on\\
+            (Volume:7, Issue:3)\\
+            \\
+            \textbf{Date of Publication :}\\
+            July-Sept. 2014 \\
+            \\
+            \textbf{ISSN :}\\
+            1939-1374\\
+            \\
+            \textbf{DOI :}\\
+            10.1109/TSC.2014.2303091
+        \end{tabular}
+
+    \end{center}
+
+    \newpage
+    {\large\textbf{Submitted By :}}
+
+    \begin{center}
+        \begin{tabular}{c}
+            \\
+            \textbf{Course No :}\\
+            CSE - 4120\\
+            \\
+            \textbf{Course Name :}\\
+            Technical Writing \& Seminar\\
+            \\
+            \textbf{Name :}\\
+            MD. ASHIQUZZAMAN\\
+            \\
+            \textbf{Roll :}\\
+            1107039\\
+            \\
+            \textbf{Date of Submission :}\\
+            Jun  16 , 2015\\
+            \\ \\
+            Department of Computer Science\\
+                    \&\\
+            Engineering, Khulna - 9203.\\
+            \\
+        \end{tabular}
+
+        \begin{figure}[htp]
+        \begin{center}
+        \includegraphics[scale=.42]{png/kuet.png}
+        \end{center}
+        %\caption{} \label{}
+        \end{figure}
+
+    \end{center}
+
+    \newpage
+    \tableofcontents
+\newpage
+    \listoffigures
+    \newpage
+    %%%Abstract%%%
+    %\addcontentsline{toc}{section}{Abstract}
+    \section{Abstract}
+	Social network platforms have rapidly changed the way that people communicate and interact. They have enabled the
+	establishment of, and participation in, digital communities as well as the representation, documentation and exploration of social
+	relationships. We believe that as ‘apps’ become more sophisticated, it will become easier for users to share their own services,
+	resources and data via social networks. To substantiate this, we present a social compute cloud where the provisioning of cloud
+	infrastructure occurs through “friend” relationships. In a social compute cloud, resource owners offer virtualized containers on their
+	personal computer(s) or smart device(s) to their social network. However, as users may have complex preference structures
+	concerning with whom they do or do not wish to share their resources, we investigate, via simulation, how resources can be effectively
+	allocated within a social community offering resources on a best effort basis. In the assessment of social resource allocation, we
+	consider welfare, allocation fairness, and algorithmic runtime. The key findings of this work illustrate how social networks can be
+	leveraged in the construction of cloud computing infrastructures and how resources can be allocated in the presence of user sharing
+	preferences.
+   %%%Index Terms%%%
+    \section{Index Terms}
+	\textbf{Social cloud computing, social networks, cloud computing, preference-based resource allocation}
+    %%%Introduction%%%
+    \section{Introduction}
+	\subsection{Background}
+            CLOUD computing has garnered praise for many reasons, most notably due to its ability to reduce overheads and costs for consumers by leveraging economies of scale to provide infrastructure, platforms and software as services. Infrastructure providers such as amazon elastic compute cloud (EC2) rid users of the burdens associated with purchasing and maintaining computer equipment; instead compute resources can be out-sourced to specialists and consumers can obtain access to an “unlimited” supply of resources. Despite its benefits, many businesses and end users are put off by an array of (perceived) uncertainties, as identified in numerous studies (e.g., [1], [2]). Two key issues are the notions of trust and accountability between resource consumers and providers [3]. In this context, trust and accountability encapsulate several different aspects such as security, privacy, ethical practices, transparency, protection of rights, and issues concerning compensation. Addressing these concerns is a significant undertaking, and consequentially, many international research programs have emerged, covering issues such as provider certification and service level agreements. In this paper we argue an alternative approach to establish trust and accountability in cloud platforms: a social cloud [4]; and advocate a novel preference-based approach to facilitate resource sharing. A social cloud is “a resource and service sharing framework utilizing relationships established between members of a social network” [5]. \\
+A social cloud is “a resource and service sharing framework utilizing relationships established between members of a social network” [5]. It is a dynamic environment through which (new) cloud-like provisioning scenarios can be established based upon the implicit levels of trust that transcend the inter-personal relationships digitally encoded within a social network. Leveraging social network platforms as mediators for the acquisition of a cloud infrastructure can be motivated through their widespread adoption, their size, and the extent to which they are used in modern society. For example, Facebook surpassed 1 billion users in 2012, 1 and has illustrated that Milgram’s 6 degrees of freedom in social networks [6] may in fact be as low as 4 [7]. Users also spend inexorable amounts of time “on” social network platforms—a recent study indicated up to 1 in every 5 minutes of time spent online by all Internet users worldwide [8]. The computational social capital available is also significant: if only 0.5 percent of Facebook users provided CPU time on their personal compute resources the potential computational power available would be comparable to a www. top500.org supercomputer [9].
+	\subsection{Motivation}
+Our vision of the social cloud is motivated by the need of individuals or groups to access resources they are not in possession of, but that could be made available by connected peers. In this paper, we present a social compute cloud: a platform for sharing infrastructure resources within a social network. Using our approach, users can download and install a middleware (an extension to Seattle [12]), leverage their personal social network via a Facebook application, and provide resources to, or consume resources from, their friends through a social clearing house. We anticipate that resources in a social cloud will be shared because they are underutilized, idle, or made available altruistically.
+
+
+    \newpage
+%%%A SOCIAL COMPUTE CLOUD%%%
+    \section{A SOCIAL COMPUTE CLOUD}
+        A social compute cloud is designed to enable access to elastic compute capabilities provided through a cloud fabric constructed over resources contributed by socially connected peers. A social cloud is a form of community cloud (as defined in NIST’s definition of cloud computing [13]), as the resources are owned, provided and consumed by members of a social community. Through this cloud infrastructure consumers are able to execute programs on virtualized resources that expose (secure) access to contributed resources, i.e., CPU time, memory and disk/ storage. In this model, providers host sandboxed lightweight virtual machines (VM) on which consumers can execute applications, potentially in parallel, on their computing resources.
+
+
+            \begin{figure}[htp]
+                \begin{center}
+                    \includegraphics[height=1.5in,width=2.5in]{jpg/compute_resource.JPG}
+                \end{center}
+                \caption{ A social compute cloud and its core components.} \label{Fig:1}
+            \end{figure}
+
+	\subsection{Challenges}
+	There are many challenges in the construction of a social cloud that need to be carefully considered. In this section, we summarize several key challenges placing a focus on: the technical facilitation of the cloud platform, the inclusion as well as interpretation of social (network) structures, the design and implementation of appropriate socio-economic models for the facilitation of exchange as well as the platform infrastructure.
+	\par \textit{Technical facilitationto} enable edge users to provide resources to, and consume resources from, one another. A social compute cloud needs to traverse network address translations (NAT), handle non-static IP addresses (especially in the case of mobile users) and accommodate best effort notions of quality of service. Although the concept of a social cloud is built upon the premise that users within a social network have some level of trust for one another, the construction of a social compute cloud still requires adequate security and sandboxing mechanisms to protect resources from potentially malicious or incompetent users and also to protect user applications from potentially malicious resources. This, in combination with a need to support multiple operating systems, can be partially addressed through virtualization.
+ 	\par\textit{ Leveraging social structures} to facilitate the sharing of compute resources within a social network. To utilize social structures for resource sharing, users must first allow access to their social network, and trust the platform with their social network data. Basing resource allocations upon a binary notion of friendship would be ill conceived for several reasons. First, social relationships are not simply edges in a graph. There are many different types of relationship (e.g., family, close friends, colleagues, acquaintances, etc.). Second, different users will associate different levels of trust to different relationship contexts.Third,different people have different qualities (e.g., reliability, trustworthiness, availability) and different competencies, for example users may assume that friends with computer science backgrounds are “better” or more “competent” with respect to offering compute resources. These three “relationship dimensions” mean that users may have very specific preferences with whom they interact, and these preferences may be different for consumer and provider roles. 3 A social cloud therefore requires additional metadata to augment the social graph of its users so that it is possible to design a mechanism that can take into account the preferences and perceptions of users towards one another. The challenge here is the design of methods to extract these preferences either explicitly from the user or implicitly from their social network profiles.
+	\subsection{ \textbf{Architecting a Social Compute Cloud}}
+In line with the challenges outlined above, we identify three
+areas of functionality needed for the construction of a social
+compute cloud:A Social Cloud Platform: the technical implementation for the construction and facilitation of the social
+cloud as well as necessary middleware to enable resource
+sharing between “friends” at the edges of the internet. A
+socio-technical adapter: the means to observe and interpret
+social ties for the elicitation or derivation of sharing preferences. A socio-economic model: the formulation of a social
+microeconomic system for the allocation of resources upon
+the premises of social ties, and preferences with respect to
+how social ties denote a user-specific willingness to consume and/or provide resources.
+	\subsubsection{A Social Compute Cloud Platform}
+	Like any cloud model, a platform is required to coordinate
+and facilitate its basic functionality (user management,
+resource allocation, etc.). Fig. 1 shows the high level architecture for a social compute cloud and its key components,
+which are explained as follows:
+	\par \textit{A social clearing house} is an institutionalized microeconomic system that defines how supply is allocated to
+demand. Smith defined the key components of a microeconomic system for the purposes of exchange in [17]. However, this definition is orientated primarily for monetarybased exchanges, which is not the case here. Therefore, a
+social clearing house captures the following: the protocols
+used for distributed resource allocation, the rules of
+exchange, i.e., who can take part and with whom may they
+exchange, and the formalization of one or more allocation
+mechanisms. A social clearing house is therefore the central
+point in the system where all information concerning users,
+their sharing preferences, and their resource supply and
+demand is kept. For this reason, the social clearing house
+requires two databases: to capture the social graph of its
+users, as well as their sharing preferences, and a resource
+manager to keep track of resource reservations, availability,
+and allocations
+	\par \textit{A middleware }to provide the basic resource fabrics,
+resource virtualization and sandboxing mechanisms for
+provisioning and consuming resources. It should also
+define the protocols needed for users and resources to join
+and leave the system. For these purposes we selected Seattle
+[12], [18] as it largely provides the needed functionality.
+However, Seattle cannot allocate its resources based upon
+social ties, and was thus extended.
+	\par \textit{Asocio-technical adapter,} which in our case is a Facebook
+application, is needed to provide access to the necessary
+aspects of users’ social networks, and acts as a means of
+authentication, for example, via Facebook connect. Once a
+user’s social network has been acquired via the socio-technical adapter, the social clearing house requires the sharing
+preferences of the user to facilitate resource allocation.
+Therefore, apreferences modulethat provides the necessary
+functionality for the capture and representation of sharing
+preferences is required. Many aspects of a socio-technical
+adapter require careful consideration, and many methods
+can be applied to capture preferences, we discuss these in
+Section 2.2.2
+	\par \textit{Matching mechanismsare} socio-economic implementations of the social clearing house microeconomic system.
+They determine appropriate allocations of resources via
+users’ sharing preferences across their social network, and
+are discussed in Sections 2.2.3 and 3.3.1.
+	\par \textit{Compute resourcesare} the technical endowment of users
+that they provide to and consume from the social cloud.
+Here, resources largely entail personal computers, servers or
+clusters. However, we note that the latter is unlikely for the
+average user. We envisage that as the computing industry
+continues to invest in mobile computing devices that such
+devices could also be offered within a social cloud in the
+future. Today, however, issues such as network stability and
+battery life hamper their inclusion. However, despite this
+researchers are making notable progress in this area; see [19].
+	\subsubsection{Social Adapters and User Preferences}
+To facilitate social sharing, and the construction of sharing preferences, a social cloud requires access to users’
+social networks. We propose using a social adapter,
+rather than implementing the platform as a social network application (for example a Facebook application),
+as we have observed that users often misunderstand the
+separation between social networks and their applications [20]. The most common misconception is that the
+social network will have access to users’ data and/or
+resources if they offer them in a social cloud-like setting
+via a social network application, which is not the case.
+For example, Facebook applications are external to the
+Facebook infrastructure, and run on third party servers.
+	\par There are different ways in which the social graph
+required by matching mechanisms can be constructed; many
+platforms, following the necessary authorization, provide
+APIs to access the social graph and user profiles. It is, however, key to the basic assumptions of a social cloud that an
+element of bilateral approval has occurred in the establishment of a digital social tie. In other words, one user initiates
+the establishment of a digital tie, and the second user must
+confirm the request in order for the link to be established.
+This process is applied in social network platforms like Facebook, and Google+. Twitter, however, does not conform to
+this requirement, as a user can decide only who they follow,
+but not who their followers are. This is an important requirement for a social cloud, as without it we can not assume any
+form of pre-existent trust between participants.
+	\par Once the social network of a user has been accessed and
+the social database populated, the question is how to interpret the user’s social ties for the purposes of allocation.
+There is no single unified methodology for the interpretation of social ties, and which to use is often context dependent. For our purposes, there are three obvious methods
+which could be applied either separately or in combination
+with one another: 1) ask users to rank their friends; 2) leverage methods from social network analysis to identify features of social ties that can be used to (artificially) construct
+preferences; and 3) use social network and interaction theories to construct a social sharing and interaction model for a
+social compute cloud, and tune this model over time based
+upon observed interactions within the social network platform and the social cloud. Each of these approaches have
+their advantages and disadvantages, and we do not advocate that this list is complete.
+
+	\section{IMPLEMENTATION}
+Our implementation of a social compute cloud builds upon
+Seattle, an open source peer-to-peer (P2P) computing platform. Seattle was chosen as the basis for this implementation due to its lightweight virtualization middleware, which
+we use to enable application execution on contributed
+resources, and its extensible clearing house model which
+we extend to enable social allocation via preference matching algorithms.
+	\subsection{Seattle}
+Seattle is an open source educational research platform
+designed to create a distributed overlay network over compute resources (servers, PCs and mobile devices) donated
+by its users. It features a lightweight virtualization layer (based onRepy—a subset of Python) that runs on a contributor’s machine and enables other users to run applications
+across different operating systems and architectures. Importantly the virtualization layer ensures that applications are
+sandboxed and isolated from other programs running on
+the same host. Seattle is implemented in Python and the
+clearing house is built on the Django framework. Seattle’s
+core components are:
+	\par \textit{Node managers} act as gatekeepers for resources and are
+deployed on every contributed resource. The node manager
+ensures that users have the appropriate credentials to interact with a particular VM running on the host system.
+	\par \textit{Virtual machines (vessel)} are sandboxed environments that
+provide both security and performance isolation. For example the VM stops applications from performing malicious
+actions and it limits usage of system resources (e.g., CPU or
+memory) to configurable levels.
+	\par \textit{The clearing house} facilitates the matching process
+between resources donated by providers and resources
+required by consumers. The clearing house is a web based
+portal for managing users’ Seattle resources. Upon registration, users can create key pairs and download a customized
+installer to setup a node manager and VM system on their
+own resources. The clearing house includes several matching algorithms such as: distributing VMs (geographically),
+and allocating VMs on the same network or at random.
+	\subsubsection{Implementing a Social Clearing House}
+Building upon Seattle we leverage the same base implementation for account creation and registration processes,
+donation infrastructure, and resource acquisition mechanisms. We have extended and deployed a new social clearing house (https://seattle.ci.uchicago.edu) that leverages
+social information derived from users’ Facebook profiles
+and relationships. We have implemented a service that enables users to define preferences and we have developed several new allocation mechanisms that utilize socially aware
+preference matching algorithms.
+            \begin{figure}[htp]
+                \begin{center}
+                    \includegraphics[height=1.7in,width=3.5in]{jpg/fig2.JPG}
+                \end{center}
+                \caption{The user preference interface.} \label{Fig:2}
+            \end{figure}
+            \begin{figure}[htp]
+                \begin{center}
+                    \includegraphics[height=1.7in,width=3.5in]{jpg/fig3.JPG}
+                \end{center}
+                \caption{The social clearing house interface showing resources being consumed and offered.} \label{Fig:3}
+            \end{figure}
+	\subsubsection{Social Network Integration}
+	In order to access users’ profile information and relationships, the social clearing house requires access to a user’s
+Facebook profile. To do so, we have created a Facebook
+application for the social clearing house that requests
+access to profile information, friends and friend lists of
+registered users. The Facebook application is integrated
+with the clearing house through the Django social auth
+plugin which, when configured with a Facebook application, allows users to associate their Seattle account with
+their Facebook account. Authentication with Facebook
+uses the OAuth2 protocol to obtain an access token that
+allows the requesting application (the clearing house) to
+act on behalf of the user within the stated scope.The
+clearing house stores this access token when a user logs
+into the service and uses it with the Facebook APIs to
+obtaintheprofileandfriendlists.Theclearinghouse
+storesthelistoffriendsforeachuserinanapplication
+database and periodically refreshes this information.
+	\subsubsection{Preference Assignment}
+We use a simple numerical preference matching interface
+(see Fig. 2) that enables users to define their preference
+forafriendasbothaconsumerandaprovider.The
+higher the value the greater the users’ preference for
+their friend. A value of 0 indicates no preference and a
+negative value indicates unwillingness to interact with
+that friend. Assigning the same value to multiple friends
+indicates indifference between them. When preferences
+are assigned they are stored in the application database
+and are used to generate the overall preference model
+for allocation involving the user
+	\subsubsection{Social Resource Allocation}
+Seattle is based on the principle of best effort and random
+allocation. To reduce the search space Seattle implements a pseudo random mechanism to reduce user/donation permutations.
+	\subsection{Preference-Based Matching}
+Two-sided preference-based matching is much studied in
+economic literature, and as such algorithms in this domain
+can be applied in many other settings. We have selected
+three algorithms from the literature, and a fourth of our
+own implementation.
+	\subsubsection{Matching Algorithms}
+For the case of complete preference rankings without
+indifferences there are polynomial-time algorithms that
+solve the matching problem for different objective functions. In the literature, citing empirical evidence, stability
+is considered important for successful matches [22]. Stability simply means that there is no pair of users who
+would prefer to be matched over their current match. As
+there can be many different stable solutions for a given
+matching problem the other commonly considered objectives are welfare (i.e., the average rank each user is
+matched with) and fairness (i.e., if the two sides are
+treated equally in terms of welfare). The deferred-acceptance (DA) algorithm [23] is the best known algorithm for
+two-sided matching and has the advantages of having a
+short runtime and at the same time always yields a stable solution. However, it cannot provide guarantees
+about welfare, and yields a particularly unfair solution
+(one side gets the best stable solution whereas the other
+side gets the worst stable solution). For certain preference structures, the welfare-optimal (WO)algorithm [24]
+yields the stable solution with the best welfare score (i.e.,
+the stable solution for which the average rank that each
+user is matched with is lowest) by using certain structures of the set of stable solutions and applying graphbased algorithms. DA and WO are two standard
+approaches used in the literature and are also considered
+in this paper.
+	\par Therefore, we proposed the use of heuristic algorithms
+such as a genetic algorithm (GA) in [25], and have shown
+that these algorithms can yield superior solutions compared to the other algorithms. The GA starts with randomly created (but stable) solutions and uses the
+standard mutation and crossover operators to increase
+the quality of the solutions. This makes the application
+of such heuristics the preferred choice if the quality of
+the allocation is the main goal. We also showed that solutions can yield even better results when combined with
+a threshold acceptance approach. The algorithm used in
+this paper, GATA, is a combination of a GA with a
+threshold acceptance (TA) algorithm, which further
+improves the solution quality. In the first step, GATA
+computes a solution to the matching problem by using
+GA, and then uses this solution as input for the TA algorithm, an effective local search heuristic that applies and
+accepts small changes within a certain threshold of the
+current solution performance.
+	\subsubsection{Matching Service}
+To facilitate matching, we implemented a RESTful encapsulation of the four algorithms presented above. It can be used
+to either perform batch allocations for a group of users, or
+single allocation for an individual user. Whilst it may seem
+unusual to facilitate both of these settings, the reason is simple: the matching algorithms perform best when batches of
+users are allocated simultaneously. In reality, however, it is
+unlikely that large batches of users will simultaneously
+request resources. Rather, demand for the matching service
+will be stochastic. Hence both options present different
+tradeoffs. Individual allocations may result in resources
+being blocked for other users, for example those with a
+small number of connections. Whereas batch allocation
+means that users may have to wait until the next round of
+allocations to receive resources. Both options are inefficient
+in different ways: individual allocation achieves at best local
+optima, and can block resources for other users, but can be
+performed in near real time, as the computational effort is
+significantly lower; batch allocations could achieve the
+global optimum, but may require either migrations or users
+to wait for resources. We explore these tradeoffs and their
+significance in Section 4.
+	\par The social network of users is captured via the existence
+of preferences between users. The matching mechanisms
+will only consider matching two users if both have a preference for each other. If a preference exists in only one direction, i.e., A has ranked B, but B has not ranked A, we
+assume that B has not yet considered A, and A’s preference
+for B will be ignored.
+
+	\par To invoke the matching service, a JSON string describing
+the user preferences is sent to the service. Upon a successful
+match, i.e., when one or more allocations can be found, the
+matching service will return a JSON string describing the
+matched consumer(s) and provider(s).
+	\section{EVALUATION}
+We showed in [4], [5] and [16] that the basic concept of a
+social cloud is feasible within the context of a social network
+and manageable for an “average” Facebook user. To evaluate
+a social compute cloud, we propose to study the platform’s
+ability to allocate resources in the presence of uncertain supply and demand, various sizes of social communities and different preference structures. In Section 4.1, we study the
+different allocation algorithms described in Section 3.3.1
+with respect to the time required to compute solutions for
+various sizes of social compute cloud. In Section 4.2 we
+investigate algorithm performance outside their typical settings with respect to batch and individual allocation and for
+different community sizes and preference structures.
+            \begin{figure}[htp]
+                \begin{center}
+                    \includegraphics[height=1.7in,width=3.5in]{jpg/fig4.JPG}
+                \end{center}
+                \caption{Algorithm runtimes with different problem sizes.} \label{Fig:4}
+            \end{figure}
+            \begin{figure}[htp]
+                \begin{center}
+                    \includegraphics[height=1.7in,width=3.5in]{jpg/fig5.JPG}
+                \end{center}
+                \caption{Runtimes for different numbers of ranked users, for 1,000 users
+per side.} \label{Fig:5}
+            \end{figure}
+	\subsection{Allocation Algorithm Runtime}
+	The runtime of an allocation algorithm has a large impact on
+its applicability for a social compute cloud. Given that preference-based matching is often NP-hard, algorithm runtime
+is an important design consideration. In this part of the evaluation, we investigate how algorithm runtime is affected by
+the level of preference completeness, and whether preferences are strict or not, i.e., whether indifferences are permitted. We argue that although complete and strict preferences
+are often assumed in the economic literature, they are unrealistic assumptions. Therefore, we investigate how relaxing
+these assumptions impact algorithm runtime.
+
+	\par Fig. 4 shows the runtime of each algorithm relative to the
+problem size, i.e., how many users are on each market side
+(consumers X  providers), and the number of (indifference)
+groups that users have. Here, “strict” indicates that preferences are strict, i.e., there are no indifferences, and “ties”
+indicates that users have indifferences in their preferences.
+The size of an indifference group is not restricted, i.e., there
+can be one group containing all users or multiple groups.
+This is determined at random.
+	\subsection{Discussion}
+The social compute cloud facilitates preference-based sharing of computational infrastructure using several different
+preference matching algorithms. Our prototype implementation leverages the Seattle virtualization middleware to
+enable execution of user applications on remote resources
+and our deployed clearing house enables users to define
+preferences and provides several matching algorithms to
+obtain a short term resource lease. Our results show the
+qualities of the algorithms and the tradeoffs that arise from
+factors like runtime, allocation mode, and allocation quality.
+	\par Section 4.1 shows a tradeoff between the allocation quality (in terms of the objective function) and the runtime of
+the respective algorithms. This is particularly clear for
+larger problem sizes. DA is the most time-efficient algorithm to obtain a stable allocation, whereas the other algorithms’ runtimes increase considerably with problem size.
+However, it is well-known that the stable allocation calculated by DA is highly unfair in the sense that it favors one
+side over the other. As we show in [25], solution quality
+with respect to fairness or welfare can be significantly
+increased by using the other algorithms. Hence, using algorithms such as GATA is preferable for smaller settings or
+when there are no time constraints, whereas using fast algorithms such as DA might be better if allocations need to be
+made more frequently
+	\section{CONCLUSIONS AND FUTUREWORK}
+	In this paper, we have presented a social compute cloud: a
+platform that enables the sharing of infrastructure resources
+between friends via digitally encoded social relationships.
+Using our implementation, users are able to execute programs on virtualized resources provided by their friends. To
+construct a social compute cloud, we have extended Seattle
+[12], [18] to access users’ social networks, allow users to elicit
+sharing preferences, and utilize matching algorithms to
+enable preference-based socially-aware resource allocation.
+	\par Preference-based resource matching is (in a general setting) an NP-hard problem, makes often unrealistic assumptions about user preferences and most state of the art
+algorithms run in batch modes. Therefore, we investigated
+what happens when we apply these algorithms to a social
+compute cloud under the assumption that resource supply
+and demand do not fit to a batch allocation model. By
+applying methods to allocate resources in between Amazon
+EC2-like periodic allocations, we were able to quickly (in
+milliseconds) allocate resources temporarily, and then globally optimize resource allocation at the next batch allocation
+period. Our results are promising and indicate how the allocation of resources could take place in a production social
+compute cloud.
+	\par As future work, we will include additional ways for
+users to provide their preferences, as well as methods to
+detect them automatically from their social network. Where
+examples of the latter include: clustering based on homophily (aspects of similarity), relationship lists and Granovetter-like [51] indicators for relationship strength. This would
+also enable further, and potentially more realistic settings
+for experimenting with the allocation algorithms. In terms
+of the social cloud platform we will further extend the sandbox to provide additional system calls and social access control so that users can give extended/restricted access rights
+to groups, for example enabling command line access for
+family members. These extensions would increase the
+number of possible applications that could be executed
+within the social cloud and also further extend the social
+integration of the system. Finally, we aim to investigate
+how users use and interact with the resources of their
+friends, and move our implementation towards a production ready system.
+	\section {ADDITIONAL RESOURCES}
+	Find the project on Facebook: http://www.facebook.com/
+SocialCloudComputing.
+
+ %%%References%%%
+    \renewcommand{\bibsection}{\section{\refname}}
+    \bibliographystyle{unsrt}
+
+    \begin{thebibliography}{99}
+
+        \bibitem{cit:1} {M. Armbrust et al., “A View of Cloud Computing,”Comm. ACM,
+vol. 53, no. 4, pp. 50-58, 2010..}
+
+        \bibitem{cit:2} {F. Gens, “New IDC IT Cloud Services Survey: Top Benefits and
+Challenges,” IDC exchange, http://blogs.idc.com/ie/?p=730,
+2009..}
+
+        \bibitem{cit:3} {D. Bradshaw, G. Folco, G. Cattaneo, and M. Kolding,
+Quantitative Estimates of the Demand for Cloud Computing in
+Europe and the Likely Barriers to Up-Take.}
+
+        \bibitem{cit:4} {K. Chard, S. Caton, O. Rana, and K. Bubendorfer, “Social Cloud:
+Cloud Computing in Social Networks,”Proc. IEEE Third Int’l Conf.
+Cloud Computing (CLOUD), pp. 99-106, 2010.}
+
+        \bibitem{cit:5} {K. Chard, K. Bubendorfer, S. Caton, and O. Rana, “Social
+Cloud Computing: A Vision for Socially Motivated Resource
+Sharing,”IEEE Trans. Services Computing,vol.5,no.4,pp.551-563, Jan. 2012..}
+
+        \bibitem{cit:6} {S. Milgram, “The Small World Problem,”Psychology Today, vol. 2,
+no. 1, pp. 60-67, 1967.}
+
+        \bibitem{cit:7} {L. Backstrom, P. Boldi, M. Rosa, J. Ugander, and S. Vigna, “Four
+Degrees of Separation,”CoRR, vol. abs/1111.4570, 2011.}
+
+        \bibitem{cit:8} {com Score,  Its a Social World: Top 10 Need-to-Knows
+about Social Networking and Where Its Headed.}
+
+        \bibitem{cit:9} { K. John, K. Bubendorfer, and K. Chard, “A Social Cloud for Public
+eResearch. ,”Proc. Seventh IEEE Int’l Conf. Science, 2011.}
+
+        \bibitem{cit:10} {M.J. Litzkow, M. Livny, and M.W. Mutka, “Condor—A Hunter of
+Idle Workstations,” Proc. Eighth Int’l Conf. Distributed Computing
+Systems, pp. 104-111, 1988;}
+
+        \bibitem{cit:11} {D.P. Anderson, “Boinc: A System for Public-Resource Computing
+and Storage,”Proc. Fifth IEEE/ACM Int’l Workshop Grid Computing,
+pp. 4-10, 2004}
+
+        \bibitem{cit:11} {J. Cappos, I. Beschastnikh, A. Krishnamurthy, and T. Anderson,
+“Seattle: A Platform for Educational Cloud Computing,” Proc.
+40th Technical Symp. ACM Special Interest Group for Computer Science Education (SIGCSE ’09), 2009}
+
+        \bibitem{cit:13} {P. Mell and T. Grance, “The Nist Definition of Cloud Computing,”
+Technical Report 800-145, Nat’l Inst. of Standards and Technology
+http://csrc.nist.gov/publications/nistpubs/800-145/SP800-145.
+pdf, Sept. 2011}
+
+        \bibitem{cit:14} {A. Thaufeeg, K. Bubendorfer, and K. Chard, “Collaborative eResearch in a Social Cloud,”Proc. IEEE Seventh Int’l Conf. E-Science
+(e-Science), pp. 224-231, Dec. 2011.}
+
+        \bibitem{cit:15} {S. Caton, C. Dukat, T. Grenz, C. Haas, M. Pfadenhauer, and C.
+Weinhardt, “Foundations of Trust: Contextualising Trust in
+Social Clouds,”Proc. Second Int’l Conf. Cloud and Green Computing
+(CGC), pp. 424-429, 2012.}
+
+        \bibitem{cit:16} {C. Haas, S. Caton, K. Chard, and C. Weinhardt, “Co-Operative
+Infrastructures: An Economic Model for Providing Infrastructures
+for Social Cloud Computing,” Proc. 46th Ann. Hawaii Int’l Conf.
+System Sciences (HICSS), 2013;}
+
+        \bibitem{cit:17} {V.L. Smith, “Microeconomic Systems as an Experimental Science,”The Am. Economic Rev., vol. 72, no. 5, pp. 923-955, 1982;}
+
+    \end{thebibliography}
+
+	
+		
+
+\end{document} 
